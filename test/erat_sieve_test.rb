@@ -27,11 +27,10 @@ class EratosthenesSieveTest < Test::Unit::TestCase
   end
 
   def test_all_items_are_primes
-    num_primes = 10_000_000
-    prime_gen = Prime::EratosthenesGenerator.new
-    expected_primes = prime_gen.take_while { |p| p < num_primes }
-    actual_primes = EratSieve.generate(num_primes)
+    num = 10_000_000
+    expected = Prime::EratosthenesGenerator.new.take_while { |p| p < num }
+    actual = EratSieve.generate(num)
 
-    assert_equal expected_primes, actual_primes
+    assert_equal expected, actual
   end
 end
