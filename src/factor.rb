@@ -34,9 +34,9 @@ class Integer
   end
 
   def prime_factors
-    return [self] if Prime.instance.prime self
+    return [self] if Prime.instance.prime? self
 
-    (2..Math.sqrt(self)).step(2).select do |x|
+    [2, *(3..(self / 2)).step(2)].select do |x|
       self % x == 0 && Prime.instance.prime?(x)
     end
   end
