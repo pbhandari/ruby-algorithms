@@ -7,3 +7,9 @@ Currently Completed
 ===================
 - Prime Sieves:
     - Eratosthenes Sieve
+- Prime Generator:
+    - using Eratosthenes Sieve to generate promes
+- Recursive Directory walker
+- Number Factorizer
+- Levenshtein Distance calculator
+- Numeric Palindrome detecter
