@@ -27,24 +27,33 @@ module Levenshtein
   # The levenshtein distance between the two strings.
   def self.distance(str1, str2)
     # to_s to account for possible 'nil'
-    str1, str2 = str1.to_s.downcase, str2.to_s.downcase
-    m, n = str1.length, str2.length
+    str1 = str1.to_s.downcase
+    str2 = str2.to_s.downcase
 
-    return n if m.zero?
-    return m if n.zero?
+    return str2.length if str1.empty?
+    return str1.length if str2.empty?
 
-    dist = (0..n).to_a
+    dist = (0..str2.length).to_a
 
-    str1.chars.each_with_index do |a, i|
-      c = i + 1
-
-      str2.chars.each_with_index do |b, j|
-        dist[j], c = c, [dist[j + 1] + 1, c + 1, dist[j] + (a == b ? 0 : 1)].min
-      end
-
-      dist[n] = c
-    end
+    str1.length.times { |i| update_costs(dist, str1[i], str2, i + 1) }
 
     dist.last
+  end
+
+  private
+
+  def self.new_cost(add_cost, del_cost, curr_cost, subs_needed)
+    [add_cost + 1, del_cost + 1, curr_cost + (subs_needed ? 0 : 1)].min
+  end
+
+  def self.update_costs(costs, char1, str2, min)
+    str2.length.times do |j|
+      tmp = min
+      min = new_cost(costs[j + 1], min, costs[j], char1 == str2[j])
+      costs[j] = tmp
+    end
+    costs[-1] = min
+
+    costs
   end
 end
