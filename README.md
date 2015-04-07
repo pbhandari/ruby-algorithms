@@ -13,3 +13,4 @@ Currently Completed
 - Number Factorizer
 - Levenshtein Distance calculator
 - Numeric Palindrome detecter
+- Inplace QuickSort for arrays
